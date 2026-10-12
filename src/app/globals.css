@@ -1,13 +1,20 @@
+
 @import "tailwindcss";
 
 :root {
-  --background: #fffafa;
-  --foreground: #211c20;
-  --primary: #e83e8c;
-  --primary-dark: #c92f73;
-  --pink-soft: #fff0f6;
-  --muted: #756d73;
-  --border: #f1dce6;
+  --background: #f7f1eb;
+  --foreground: #30262b;
+  --primary: #842d4b;
+  --primary-dark: #642038;
+  --pink-soft: #f0dfe2;
+  --rose: #e8c7ce;
+  --muted: #796c72;
+  --border: #e7d8d8;
+
+  --shadow-soft: 0 8px 30px rgba(48, 38, 43, 0.06);
+  --shadow-card: 0 16px 45px rgba(72, 36, 51, 0.10);
+  --shadow-hover: 0 24px 60px rgba(72, 36, 51, 0.16);
+  --glow-rose: 0 0 40px rgba(232, 199, 206, 0.45);
 }
 
 * {
@@ -16,6 +23,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -24,12 +32,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 html,
 body {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 a {
@@ -39,14 +48,93 @@ a {
 
 button,
 a {
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
 }
 
 ::selection {
-  background: #f9c4dc;
-  color: #211c20;
+  background: #842d4b;
+  color: #fffaf7;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-gently {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease-out both;
+}
+
+.animate-float {
+  animation: float-gently 5s ease-in-out infinite;
+}
+
+.animate-soft-pulse {
+  animation: soft-pulse 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  button {
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  a:hover,
+  button:hover {
+    transition-duration: 0.35s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
